@@ -1,0 +1,21 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "packageManager": "yarn@3.3.1",
+  "scripts": {
+    "spa:build": "cd tests/spa && nuxt build && nuxt preview",
+    "spa:generate": "cd tests/spa && nuxt generate && nuxt preview",
+    "ssr:build": "cd tests/ssr && nuxt build && nuxt preview",
+    "ssr:generate": "cd tests/ssr && nuxt generate && nuxt preview",
+    "ssr-no-payload:build": "cd tests/ssr-no-payload && nuxt build && nuxt preview",
+    "ssr-no-payload:generate": "cd tests/ssr-no-payload && nuxt generate && nuxt preview",
+    "hybrid:build": "cd tests/hybrid && nuxt build && nuxt preview",
+    "hybrid:generate": "cd tests/hybrid && nuxt generate && nuxt preview"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "0.4.0",
+    "@types/node": "^18",
+    "nuxt": "^3.4.2",
+    "prettier": "2.8.7"
+  }
+}
