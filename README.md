@@ -89,3 +89,30 @@ extraction, it seems the only use of this mode is to prerender fully static page
 yarn run hybrid:build # http://localhost:3000
 # Note there's also `yarn run hybrid:generate` but it is exactly the same as SSR with prerendering and payload extraction
 ```
+
+## Structure of the demo
+
+The demo consists of 3 pages: `index`, `page1` and `page2`. All pages share the same `default` layout. Each page has
+links to all other pages.
+There's a REST api running on `/api` with a single `/api/test` endpoint returning the following data:
+
+```typescript
+type Response = {
+    timestamp: number; // the timestamp when the request was handled
+    from: string; // the `from` query parameter of the request, indicating from which page/layout the request was made
+}
+```
+
+When the api is hit with a request, it prints `hit /api/test from ${from}` to the terminal window.
+
+When the layout is rendered, it makes a request to `/api/test` and puts the result in a global state storage
+with `useState`. Pages `page1` and `page2` also make a request to `/api/test` when rendered, and then render the result
+of their own request, as well as the result from the global state storage.
+
+## What to note when running the demo
+
+You will see the requests made from each page and the layout in the Network tab of the browser's Dev Tools under
+Fetch/XHR filter and/or in the terminal window running the app, depending on whether the request was made client-side or
+server-side. Additionally, you will see extracted payloads in the same tab in the Dev Tools under the JS filter as
+_payload.js. Reloading the page will force server-side rendering, while navigating to a page via links on the page will
+lead to client-side rendering. The behavior of all of this will depend on which mode the app is running in.
